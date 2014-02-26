@@ -11,7 +11,17 @@ If you find any bug, please email me : wangwei@mprc.pku.edu.cn
 
 #Quick Start:#
 	Use openJSON as fast as possible:
-		#include <openjson.hpp>
+		#include <openjson.hpp>--will come soon!
+		
+	Use openJSON as static library:
+		Install on Linux:
+			make
+			sudo make install
+			#include <openjson.h> in your project
+		Install on windows:	
+			Create a win32 console project.
+			Generate the .lib file 
+			#include <openjson.h> in your project
 
 	Use openJSON as dynamic library:
 		Install on Linux:
