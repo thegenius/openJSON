@@ -1,6 +1,10 @@
 #openJSON#
 
 __JSON parser that easy to use, elegant in coding, effcient in performance.__
+__Yes, it is a parser, but not only a parser!__
+__It also provides a JavaScript object simulation which named "Object".__
+__"Object" can be totally translated into JSON format string.__
+
 
 If you find any bug, please email me : wangwei@mprc.pku.edu.cn
 
