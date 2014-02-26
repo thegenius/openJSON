@@ -9,7 +9,7 @@ Quick Start:
 
 	Use openJSON as dynamic library:
 		Install on Linux: 	
-      make
+      			make
 			sudo make install
 			#include <openjson.h> in your project
 
