@@ -21,8 +21,7 @@ Quick Start:
 
 Use Example:
 
-1.	Parse JSON string:
-
+1. Parse JSON string:
     const char   *str = 
       "[                                                            \
         1, -2, 3.4, -5.6, 7.8e+9, -12.3E-4, true, false, null,		  \
