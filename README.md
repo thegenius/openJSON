@@ -1,6 +1,7 @@
 #openJSON#
 
-__JSON parser that easy in use, elegant in coding, effcient in performance.__\n
+__JSON parser that easy in use, elegant in coding, effcient in performance.__
+
 If you find any bug, please email me : wangwei@mprc.pku.edu.cn__
 
 #Quick Start:#
