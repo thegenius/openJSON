@@ -3,20 +3,19 @@
 JSON parser that easy in use, elegant in coding, effcient in performance.
 
 #Quick Start:#
-	Use openJSON as static library:
+	Use openJSON as fast as possible:
 		#include <openjson.hpp>
 
 	Use openJSON as dynamic library:
-		Install on Linux: 	
-      			make
+		Install on Linux:
+			make
 			sudo make install
 			#include <openjson.h> in your project
 
 		Install on windows:	
-			Create a win32 console project.
-			Choose DLL(D) 
+			Create a win32 console project(DLL).
+			Generate the .dll file 
 			#include <openjson.h> in your project
-			
 
 #Use Example:#
 ##1. Parse JSON string:##
