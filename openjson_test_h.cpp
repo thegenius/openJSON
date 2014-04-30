@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 	const int len = 14;
 	Object part1[] = { 5, -2,  15, 1.2,    3,    -6, 23.567,       6, -23.567, -1.28, 12.3, 178.2, -3.14, -199.0};
 	Object part2[] = { 7,  4, -12,   2,  7.8, 1.223,     -7,  -1.223,       7, -2.67, 12.3, -0.93, 128.6, -196.8}; 
-	printf("len:%d\n",sizeof(part1)/sizeof(Object));
+	printf("len:%d\n",(int)(sizeof(part1)/sizeof(Object)));
 	Object test4;
 	for (int i=0; i<len; ++i) {
 	#define NICE_PRINT_EXPR_2( OPRAND1, OPERATOR, OPRAND2, RESULT ) do {  \
@@ -163,9 +163,9 @@ int main(int argc, char* argv[]) {
 	int src_len = test6.str_len();
 	printf("str_len : %d\n", src_len);
 
-	printf("find_str : %llu\n",test6.find_str(test7));
+	printf("find_str : %lu\n",test6.find_str(test7));
 
-	printf("rfind_str : %llu\n",test6.rfind_str(test7));
+	printf("rfind_str : %lu\n",test6.rfind_str(test7));
 
 	test6.insert_str(test7, 7);
 	printf("after insert:\n");

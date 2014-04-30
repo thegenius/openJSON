@@ -75,8 +75,9 @@ private:
 		unordered_map<char*,Object*> *map; /* unordered structure type */
 
 	} data;
-
-	uint64_t type;
+	
+	int32_t ref_count;
+	uint32_t type;
 
 public:
 	/* constructor for primative type*/
@@ -101,7 +102,7 @@ public:
 	/* end of constuctor */
 
 	/* virtual destructor */
-	virtual ~Object();
+	~Object();
 
 	/* assign operator = */
 	Object& operator= (const uint8_t u8);
@@ -115,8 +116,8 @@ public:
 	Object& operator= (const float32_t f32);
 	Object& operator= (const float64_t f64);
 	Object& operator= (const bool b);
-	Object& operator= (char *str);
-	Object& operator= (const Object &obj);
+	Object& operator= (const char* str);
+	Object& operator= (const Object& obj);
 	/* end of assign operator = */
 
 
@@ -136,6 +137,12 @@ public:
 	bool is_vec();
 	bool is_map();
 	/************ end of predicate ***************************/
+	
+	/* begin of ref count manipulation*/
+	bool count_no_positive();
+	void increase_count();
+	void decrease_count();
+	/* end of ref count manipulation*/
 
 	/* function used to check the type
 	   according to the DATA_TYPE enum */
@@ -177,11 +184,11 @@ public:
 	/* begin of operator[] */
 	/* as location referrence */
 	Object& operator[](const int idx);
-	Object& operator[](char *key) ;
+	Object& operator[](const char *key) ;
 	Object& operator[](Object &obj);
 	/* as r referrence */
 	const Object& operator[](const uint64_t idx) const;
-	const Object& operator[](char *key) const ;
+	const Object& operator[](const char *key) const ;
 	const Object& operator[](Object &obj) const ;
 	/* end of operator[] */
 
