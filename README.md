@@ -11,7 +11,7 @@ If you find any bug, please email me : wangwei@mprc.pku.edu.cn
 
 #Quick Start:#
 	Use openJSON as fast as possible:
-		#include <openjson.hpp>--will come soon!
+		#include <openjson.hpp>
 		
 	Use openJSON as static library:
 		Install on Linux:

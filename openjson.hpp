@@ -385,6 +385,7 @@ static Object& parse_null(const char *str, const char *&ptr);
 	/* end of constuctor */
 
 	/* destructor */
+	#ifdef __DEBUG_DESTRUCTOR
 	Object::~Object() {
 		--this->ref_count;
 		if (this->ref_count <= 0) {
@@ -411,7 +412,7 @@ static Object& parse_null(const char *str, const char *&ptr);
 								}
 								printf("\n");
 								printf("]");
-								//delete this->data.vec;
+								delete this->data.vec;
 								break;
 
 				case MAP_PTR:	printf("%lx:", (uint64_t)this);printf("{\n");
@@ -421,6 +422,8 @@ static Object& parse_null(const char *str, const char *&ptr);
 									}
 									/* it->first is char*, so we can not use print(level+1) */
 									printf("%lx : ",(uint64_t)&((*it).first));
+									delete it->first;
+
 									if (it->second->get_type() == VEC_PTR ||
 											it->second->get_type() == MAP_PTR) {
 										printf("\n");
@@ -428,7 +431,12 @@ static Object& parse_null(const char *str, const char *&ptr);
 									} else {
 										it->second->print_addr(0);
 									}
+									it->second->decrease_count();
+									if (it->second->count_no_positive()) {
+										delete it->second;
+									}
 								}
+								delete this->data.map;
 								printf("\n");
 								printf("}");
 								break;
@@ -471,6 +479,39 @@ static Object& parse_null(const char *str, const char *&ptr);
 	//	    }
 	//	}
 	}
+#else
+	Object::~Object() {
+			--this->ref_count;
+			if (this->ref_count <= 0) {
+				switch(this->type) {
+					case CHAR_PTR:  delete this->data.str;
+									break;
+	
+					case VEC_PTR:	for (auto it=(*(this->data.vec)).begin(); it!=(*this->data.vec).end(); ++it) {
+										(*it)->decrease_count();
+										if ((*it)->count_no_positive()) {
+											delete (*it);
+										}
+									}
+									delete this->data.vec;
+									break;
+	
+					case MAP_PTR:	for(auto it=(*this->data.map).begin(); it!=(*this->data.map).end(); ++it) { 
+										delete it->first;
+										it->second->decrease_count();
+										if (it->second->count_no_positive()) {
+											delete it->second;
+										}
+									}
+									delete this->data.map;
+									break;
+	
+					default :		break;
+				}
+		}
+	}
+#endif
+	/* end of destructor */
 
 	/* assign operator = */
 	Object& Object::operator= (const uint8_t u8) {
@@ -742,7 +783,7 @@ static Object& parse_null(const char *str, const char *&ptr);
 	/* begin of operator[] */
 	/* as location referrence */
 	Object& Object::operator[](const int idx) {
-		puts("location refer");
+		//puts("location refer");
 		if (this->type != VEC_PTR) { //it is NULL_PTR or type other than VEC_PTR
 			this->data.vec = new vector<Object*>(idx+1);
 			this->type = VEC_PTR;
@@ -750,7 +791,7 @@ static Object& parse_null(const char *str, const char *&ptr);
 			for (int i=0; i<=idx; ++i) {
 				Object *ptr = new Object();
 				ptr->increase_count();
-				printf("init addr:%lx\n",(uint64_t)ptr);
+				//printf("init addr:%lx\n",(uint64_t)ptr);
 				(*this->data.vec)[i] = ptr;
 			}
 
@@ -762,7 +803,7 @@ static Object& parse_null(const char *str, const char *&ptr);
 				for (int i=0; i<less; ++i) {
 					Object *ptr = new Object();
 					ptr->increase_count();
-					printf("init addr:%lx\n",(uint64_t)ptr);
+					//printf("init addr:%lx\n",(uint64_t)ptr);
 					(*this->data.vec)[size+i] = ptr;
 				}
 			}
@@ -805,7 +846,7 @@ static Object& parse_null(const char *str, const char *&ptr);
 	}
 
 	const Object& Object::operator[](const uint64_t idx) const {
-		puts("r reference");
+		//puts("r reference");
 		if (idx+1 > this->data.vec->size()) {
 			Object *tmp = new Object();
 			return *tmp;
