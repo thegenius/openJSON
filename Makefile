@@ -10,7 +10,12 @@ AR=ar
 CFLAGS := -I$(INCLUDE_DIR) -O2 -std=c++0x -fPIC
 LFLAGS := -L$(LIB_DIR)
 
-all: generate_headers generate_libs generate_bins generate_tests
+all: generate_dirs generate_headers generate_libs generate_bins generate_tests
+################################################################
+##
+################################################################
+generate_dirs:
+	mkdir -pv $(BIN_DIR) $(INCLUDE_DIR) $(LIB_DIR)
 
 ################################################################
 # copy headers                                                 #
